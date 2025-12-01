@@ -85,7 +85,7 @@ if (contactForm) {
       submitBtn.textContent = 'Sending...';
     }
     // IMPORTANT: no e.preventDefault() here
-    // Browser will POST to /.netlify/functions/ghl-form
+    // Browser will POST to /api/ghl-form
     // Form will submit naturally
   });
 }
