@@ -915,26 +915,10 @@
                     formData.append('businessInfoPdf', pdfFile);
                 }
 
-                // TODO: Replace with actual webhook URL
-                const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
+                // Send to API route which will forward to GHL webhook
+                const webhookUrl = '/api/website-design-webhook';
 
-                if (webhookUrl === 'YOUR_WEBHOOK_URL_HERE') {
-                    console.log('Form data prepared:', {
-                        name: formData.get('name'),
-                        email: formData.get('email'),
-                        companyName: formData.get('companyName'),
-                        selectedPages: formData.get('selected_pages'),
-                        logoFile: logoFile?.name,
-                        inspirationFiles: inspirationFiles.map(f => f.name),
-                        pdfFile: pdfFile?.name
-                    });
-                    alert('Webhook URL not configured. Please add your webhook URL in the script section.');
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<span>Submit</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
-                    return;
-                }
-
-                // Send to webhook
+                // Send to API route
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
                     body: formData

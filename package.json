@@ -20,6 +20,9 @@
     "url": "https://github.com/rodgnut-svg/zimsaas/issues"
   },
   "homepage": "https://github.com/rodgnut-svg/zimsaas#readme",
+  "dependencies": {
+    "busboy": "^1.6.0"
+  },
   "devDependencies": {
     "http-server": "^14.1.1"
   }
