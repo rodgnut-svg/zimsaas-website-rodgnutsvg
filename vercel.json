@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/website-onboarding",
+      "destination": "/website-design-onboarding.html"
+    }
+  ]
+}
+
