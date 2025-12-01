@@ -1,0 +1,26 @@
+{
+  "name": "zimsaas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "http-server -p 8080 -o",
+    "start": "http-server -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodgnut-svg/zimsaas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rodgnut-svg/zimsaas/issues"
+  },
+  "homepage": "https://github.com/rodgnut-svg/zimsaas#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
