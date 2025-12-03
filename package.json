@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/rodgnut-svg/zimsaas#readme",
   "dependencies": {
-    "busboy": "^1.6.0"
+    "busboy": "^1.6.0",
+    "ogl": "^1.0.11"
   },
   "devDependencies": {
     "http-server": "^14.1.1"

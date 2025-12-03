@@ -54,6 +54,34 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
+}
+
+html {
+    background: var(--bg-primary);
+}
+
+/* ===== Galaxy Background ===== */
+#galaxy-root {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background: transparent;
+    display: block;
+    overflow: hidden;
+}
+
+#galaxy-root canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
 }
 
 a {
@@ -245,6 +273,11 @@ input, textarea {
 }
 
 /* ===== Hero Section ===== */
+section {
+    position: relative;
+    z-index: 1;
+}
+
 .hero {
     min-height: 100vh;
     display: flex;
@@ -253,8 +286,7 @@ input, textarea {
     position: relative;
     padding: calc(var(--nav-height) + 2rem) 1.5rem 4rem;
     background: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.12), transparent),
-        linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.12), transparent);
     overflow: hidden;
 }
 
@@ -319,7 +351,7 @@ input, textarea {
 /* ===== Core Solutions Section ===== */
 .solutions {
     padding: clamp(5rem, 10vw, 6.25rem) 1.5rem;
-    background: var(--bg-secondary);
+    background: rgba(13, 13, 20, 0.3);
     position: relative;
 }
 
@@ -541,7 +573,7 @@ input, textarea {
 /* ===== About Section ===== */
 .about {
     padding: var(--section-padding) 1.5rem;
-    background: var(--bg-secondary);
+    background: rgba(13, 13, 20, 0.3);
     position: relative;
 }
 
@@ -628,7 +660,7 @@ input, textarea {
 /* ===== Industries Section ===== */
 .industries {
     padding: clamp(4rem, 10vw, 5.5rem) 1.5rem;
-    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    background: rgba(10, 10, 15, 0.2);
     position: relative;
 }
 
@@ -727,7 +759,7 @@ input, textarea {
 /* ===== Contact Section ===== */
 .contact {
     padding: var(--section-padding) 1.5rem;
-    background: var(--bg-primary);
+    background: rgba(10, 10, 15, 0.3);
     position: relative;
     overflow: hidden;
 }
