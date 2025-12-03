@@ -281,29 +281,39 @@ function Galaxy({
         ctn.appendChild(gl.canvas);
 
         function handleMouseMove(e) {
-            // Use window dimensions instead of container
+            // Calculate relative to the full window since container is full-screen fixed
             const x = e.clientX / window.innerWidth;
             const y = 1.0 - (e.clientY / window.innerHeight);
             targetMousePos.current = { x, y };
             targetMouseActive.current = 1.0;
+            
+            // Debug: log first few mouse moves
+            if (!handleMouseMove.logged || handleMouseMove.count < 3) {
+                handleMouseMove.logged = true;
+                handleMouseMove.count = (handleMouseMove.count || 0) + 1;
+                console.log('Mouse moved:', { x, y, clientX: e.clientX, clientY: e.clientY });
+            }
         }
 
         function handleMouseLeave() {
             targetMouseActive.current = 0.0;
         }
 
-        // Attach to document for global mouse tracking
+        // Attach to window for global mouse tracking (works even with pointer-events:none on parent)
         if (mouseInteraction) {
-            document.addEventListener('mousemove', handleMouseMove);
-            document.addEventListener('mouseleave', handleMouseLeave);
+            console.log('✅ Mouse interaction enabled, attaching listeners');
+            window.addEventListener('mousemove', handleMouseMove);
+            window.addEventListener('mouseleave', handleMouseLeave);
+        } else {
+            console.log('❌ Mouse interaction disabled');
         }
 
         return () => {
             cancelAnimationFrame(animateId);
             window.removeEventListener('resize', resize);
             if (mouseInteraction) {
-                document.removeEventListener('mousemove', handleMouseMove);
-                document.removeEventListener('mouseleave', handleMouseLeave);
+                window.removeEventListener('mousemove', handleMouseMove);
+                window.removeEventListener('mouseleave', handleMouseLeave);
             }
             if (ctn.contains(gl.canvas)) {
                 ctn.removeChild(gl.canvas);
@@ -326,14 +336,20 @@ function Galaxy({
 
 // Initialize when DOM is ready
 window.initGalaxyBackground = function() {
-    const root = ReactDOM.createRoot(document.getElementById('galaxy-root'));
-    root.render(React.createElement(Galaxy, {
+    const config = {
         density: 1,
         hueShift: 140,
         glowIntensity: 0.3,
         mouseRepulsion: true,
-        mouseInteraction: true
-    }));
+        mouseInteraction: true,
+        repulsionStrength: 2,
+        twinkleIntensity: 0.3,
+        rotationSpeed: 0.1
+    };
+    console.log('🚀 Initializing Galaxy with config:', config);
+    
+    const root = ReactDOM.createRoot(document.getElementById('galaxy-root'));
+    root.render(React.createElement(Galaxy, config));
     console.log('✅ Galaxy background from reactbits.dev initialized');
 };
 
