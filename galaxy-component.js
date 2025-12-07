@@ -386,9 +386,11 @@ window.initGalaxyBackground = function() {
         mouseInteraction: true,
         repulsionStrength: 2,
         twinkleIntensity: 0.3,
-        rotationSpeed: 0.1
+        rotationSpeed: 0.1,
+        transparent: true
     };
     console.log('🚀 Initializing Galaxy with config:', config);
+    console.log('🔍 Galaxy version: Dec 7 2025 - 17:45');
     
     const root = ReactDOM.createRoot(document.getElementById('galaxy-root'));
     root.render(React.createElement(Galaxy, config));
