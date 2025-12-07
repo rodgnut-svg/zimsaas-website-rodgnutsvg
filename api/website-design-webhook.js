@@ -100,14 +100,14 @@ export default async function handler(req, res) {
     const name = fields.name && fields.name[0] ? fields.name[0] : "";
     const email = fields.email && fields.email[0] ? fields.email[0] : "";
     const companyName = fields.companyName && fields.companyName[0] ? fields.companyName[0] : "";
-    const selectedPagesJson = fields.selected_pages && fields.selected_pages[0] ? fields.selected_pages[0] : "[]";
+    const automationFeaturesJson = fields.automation_features && fields.automation_features[0] ? fields.automation_features[0] : "[]";
     
-    // Parse selected pages
-    let selectedPages = [];
+    // Parse automation features
+    let automationFeatures = [];
     try {
-      selectedPages = JSON.parse(selectedPagesJson);
+      automationFeatures = JSON.parse(automationFeaturesJson);
     } catch (e) {
-      selectedPages = [];
+      automationFeatures = [];
     }
 
     // Convert files to base64
@@ -139,7 +139,7 @@ export default async function handler(req, res) {
       "Name": name,
       "Email": email,
       "Company Name": companyName,
-      "Selected Pages": Array.isArray(selectedPages) ? selectedPages.join(", ") : selectedPages,
+      "Automation Features": Array.isArray(automationFeatures) ? automationFeatures.join(", ") : automationFeatures,
       "Logo": logoBase64 || "",
       "Inspiration Images": inspirationImages.join("|||"), // Use ||| as separator for multiple images
       "Business Info PDF": pdfBase64 || "",
@@ -165,7 +165,7 @@ export default async function handler(req, res) {
       Name: payload.Name,
       Email: payload.Email,
       "Company Name": payload["Company Name"],
-      "Selected Pages": payload["Selected Pages"],
+      "Automation Features": payload["Automation Features"],
       "Has Logo": !!logoBase64,
       "Inspiration Images Count": inspirationImages.length,
       "Has PDF": !!pdfBase64,

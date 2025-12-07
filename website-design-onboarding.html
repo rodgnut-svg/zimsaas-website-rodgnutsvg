@@ -8,7 +8,7 @@
     <link rel="icon" type="image/jpeg" sizes="16x16" href="assets/favicon.jpg">
     <link rel="shortcut icon" type="image/jpeg" href="assets/favicon.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.jpg">
-    <title>Website Design Onboarding | ZimSaaS</title>
+    <title>Automation Onboarding | ZimSaaS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -484,7 +484,7 @@
                 class="brand-logo"
             />
             <div>
-                <div class="badge">Website Design</div>
+                <div class="badge">Automation Setup</div>
                 <h1>Client Onboarding</h1>
             </div>
         </div>
@@ -493,12 +493,12 @@
 
     <main class="onboarding-main">
         <section class="intro-card">
-            <h2>Tell us about your project</h2>
-            <p>Share your brand details, inspiration, and requirements so we can create a website that perfectly represents your business.</p>
+            <h2>Tell us about your automation needs</h2>
+            <p>Share your business details, current processes, and automation requirements so we can build the perfect WhatsApp booking system and custom automations for your business.</p>
         </section>
 
         <section class="onboarding-shell">
-            <form id="websiteDesignForm" enctype="multipart/form-data">
+            <form id="automationOnboardingForm" enctype="multipart/form-data">
                 <!-- Contact Details Section -->
                 <div class="form-section">
                     <h3>Contact Details</h3>
@@ -539,10 +539,10 @@
                     <div class="file-list" id="logoFileList"></div>
                 </div>
 
-                <!-- Website Inspiration Images Section -->
+                <!-- Business Inspiration Images Section -->
                 <div class="form-section">
-                    <h3>Website Inspiration Images</h3>
-                    <p>Upload up to 3 images that inspire your website design</p>
+                    <h3>Business Inspiration Images (Optional)</h3>
+                    <p>Upload up to 3 images that showcase your business or serve as reference for your automation setup</p>
                     <div class="file-upload-area" id="inspirationUploadArea">
                         <input type="file" id="inspirationInput" name="inspirationImages" accept="image/*" multiple>
                         <svg class="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -556,42 +556,42 @@
                     <div class="image-preview-grid" id="inspirationPreviewGrid"></div>
                 </div>
 
-                <!-- Page Selection Section -->
+                <!-- Automation Features Section -->
                 <div class="form-section">
-                    <h3>Page Selection</h3>
-                    <p>Select which pages you'd like for your website</p>
+                    <h3>Automation Features Needed</h3>
+                    <p>Select which automation features you'd like to implement</p>
                     <div class="page-selection-grid">
                         <label class="page-tile">
-                            <input type="checkbox" name="selected_pages" value="Home">
-                            Home
+                            <input type="checkbox" name="automation_features" value="WhatsApp Booking Bot">
+                            WhatsApp Booking Bot
                         </label>
                         <label class="page-tile">
-                            <input type="checkbox" name="selected_pages" value="About">
-                            About
+                            <input type="checkbox" name="automation_features" value="Automated Reminders">
+                            Automated Reminders
                         </label>
                         <label class="page-tile">
-                            <input type="checkbox" name="selected_pages" value="Services">
-                            Services
+                            <input type="checkbox" name="automation_features" value="CRM Integration">
+                            CRM Integration
                         </label>
                         <label class="page-tile">
-                            <input type="checkbox" name="selected_pages" value="Contact">
-                            Contact
+                            <input type="checkbox" name="automation_features" value="Lead Capture">
+                            Lead Capture
                         </label>
                         <label class="page-tile">
-                            <input type="checkbox" name="selected_pages" value="Gallery / Portfolio">
-                            Gallery / Portfolio
+                            <input type="checkbox" name="automation_features" value="Customer Follow-up">
+                            Customer Follow-up
                         </label>
                         <label class="page-tile">
-                            <input type="checkbox" name="selected_pages" value="FAQ">
-                            FAQ
+                            <input type="checkbox" name="automation_features" value="Payment Processing">
+                            Payment Processing
                         </label>
                         <label class="page-tile">
-                            <input type="checkbox" name="selected_pages" value="Pricing">
-                            Pricing
+                            <input type="checkbox" name="automation_features" value="Calendar Sync">
+                            Calendar Sync
                         </label>
                         <label class="page-tile">
-                            <input type="checkbox" name="selected_pages" value="Blog">
-                            Blog
+                            <input type="checkbox" name="automation_features" value="Custom Workflow">
+                            Custom Workflow
                         </label>
                     </div>
                 </div>
@@ -634,7 +634,7 @@
     </main>
 
     <script>
-        const form = document.getElementById('websiteDesignForm');
+        const form = document.getElementById('automationOnboardingForm');
         const logoInput = document.getElementById('logoInput');
         const logoUploadArea = document.getElementById('logoUploadArea');
         const logoFileList = document.getElementById('logoFileList');
@@ -905,10 +905,10 @@
                 });
                 formData.append('inspirationImageCount', inspirationFiles.length);
 
-                // Add selected pages
-                const selectedPages = Array.from(document.querySelectorAll('input[name="selected_pages"]:checked'))
+                // Add automation features
+                const automationFeatures = Array.from(document.querySelectorAll('input[name="automation_features"]:checked'))
                     .map(cb => cb.value);
-                formData.append('selected_pages', JSON.stringify(selectedPages));
+                formData.append('automation_features', JSON.stringify(automationFeatures));
 
                 // Add PDF
                 if (pdfFile) {

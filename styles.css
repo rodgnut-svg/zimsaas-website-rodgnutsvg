@@ -118,6 +118,8 @@ input, textarea {
     -webkit-backdrop-filter: var(--blur-glass);
     border-bottom: 1px solid var(--border-color);
     height: var(--nav-height);
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
 }
 
 .nav-container {

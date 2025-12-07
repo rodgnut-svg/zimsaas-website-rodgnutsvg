@@ -112,9 +112,10 @@ if (contactForm) {
 
 
 
-    // ===== Navbar Background on Scroll =====
+    // ===== Navbar Hide on Scroll Down =====
     const navbar = document.querySelector('.navbar');
     let lastScroll = 0;
+    let scrollThreshold = 100; // Only hide after scrolling 100px
     
     const handleScroll = () => {
         const currentScroll = window.pageYOffset;
@@ -124,6 +125,22 @@ if (contactForm) {
             navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.1)';
         } else {
             navbar.style.borderBottomColor = 'rgba(255, 255, 255, 0.08)';
+        }
+        
+        // Hide navbar when scrolling down, show when scrolling up
+        if (currentScroll > scrollThreshold) {
+            if (currentScroll > lastScroll) {
+                // Scrolling down - hide navbar
+                navbar.style.transform = 'translateY(-100%)';
+                navbar.style.transition = 'transform 0.3s ease-in-out';
+            } else {
+                // Scrolling up - show navbar
+                navbar.style.transform = 'translateY(0)';
+                navbar.style.transition = 'transform 0.3s ease-in-out';
+            }
+        } else {
+            // Near top of page - always show navbar
+            navbar.style.transform = 'translateY(0)';
         }
         
         lastScroll = currentScroll;
