@@ -3,6 +3,8 @@
  * Handles mobile navigation, smooth scrolling, and form submission
  */
 
+console.log('🚀 script.js loaded - version Dec 7 2025 18:00');
+
 document.addEventListener('DOMContentLoaded', () => {
     // ===== Initialize Galaxy Background =====
     console.log('🌟 DOM loaded, checking for Galaxy dependencies...');

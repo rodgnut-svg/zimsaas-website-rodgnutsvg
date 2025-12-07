@@ -1,6 +1,8 @@
 // Galaxy component - CODE EXACT de reactbits.dev
 // https://reactbits.dev/backgrounds/galaxy
 
+console.log('🌌 galaxy-component.js loaded - version Dec 7 2025 18:00');
+
 // OGL will be loaded dynamically if not already available
 const { useRef, useEffect } = React;
 
