@@ -5,21 +5,33 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // ===== Initialize Galaxy Background =====
+    console.log('🌟 DOM loaded, checking for Galaxy dependencies...');
+    
     // Wait for OGL and React to load
     let attempts = 0;
     const maxAttempts = 50;
     const checkDependencies = setInterval(() => {
         attempts++;
-        if (window.React && window.ReactDOM && window.initGalaxyBackground) {
+        const hasReact = typeof window.React !== 'undefined';
+        const hasReactDOM = typeof window.ReactDOM !== 'undefined';
+        const hasInit = typeof window.initGalaxyBackground === 'function';
+        
+        console.log(`Attempt ${attempts}: React=${hasReact}, ReactDOM=${hasReactDOM}, initGalaxyBackground=${hasInit}`);
+        
+        if (hasReact && hasReactDOM && hasInit) {
             clearInterval(checkDependencies);
-            console.log('Initializing Galaxy...');
-            window.initGalaxyBackground();
+            console.log('✅ All dependencies loaded, initializing Galaxy...');
+            try {
+                window.initGalaxyBackground();
+            } catch (error) {
+                console.error('❌ Error initializing Galaxy:', error);
+            }
         } else if (attempts >= maxAttempts) {
             clearInterval(checkDependencies);
-            console.error('Failed to load Galaxy dependencies', {
-                React: !!window.React,
-                ReactDOM: !!window.ReactDOM,
-                initGalaxyBackground: !!window.initGalaxyBackground
+            console.error('❌ Failed to load Galaxy dependencies after 5 seconds', {
+                React: hasReact,
+                ReactDOM: hasReactDOM,
+                initGalaxyBackground: hasInit
             });
         }
     }, 100);
