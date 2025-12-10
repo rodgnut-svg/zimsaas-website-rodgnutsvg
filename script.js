@@ -4,26 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ===== Initialize Galaxy Background =====
-    // Wait for OGL and React to load
-    let attempts = 0;
-    const maxAttempts = 50;
-    const checkDependencies = setInterval(() => {
-        attempts++;
-        if (window.React && window.ReactDOM && window.initGalaxyBackground) {
-            clearInterval(checkDependencies);
-            console.log('Initializing Galaxy...');
-            window.initGalaxyBackground();
-        } else if (attempts >= maxAttempts) {
-            clearInterval(checkDependencies);
-            console.error('Failed to load Galaxy dependencies', {
-                React: !!window.React,
-                ReactDOM: !!window.ReactDOM,
-                initGalaxyBackground: !!window.initGalaxyBackground
-            });
-        }
-    }, 100);
-    
     // ===== Mobile Navigation Toggle =====
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
