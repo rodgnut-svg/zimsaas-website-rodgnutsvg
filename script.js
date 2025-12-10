@@ -3,6 +3,8 @@
  * Handles mobile navigation, smooth scrolling, and form submission
  */
 
+console.log('🚀 script.js loaded - version Dec 7 2025 18:00');
+
 document.addEventListener('DOMContentLoaded', () => {
     // ===== Mobile Navigation Toggle =====
     const hamburger = document.getElementById('hamburger');
