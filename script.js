@@ -9,24 +9,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== Mobile Navigation Toggle =====
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link, .nav-cta');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
     // Toggle mobile menu
     const toggleMenu = () => {
         hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
+        // Toggle Tailwind classes for mobile menu
+        navMenu.classList.toggle('translate-y-0');
+        navMenu.classList.toggle('-translate-y-full');
+        navMenu.classList.toggle('opacity-100');
+        navMenu.classList.toggle('opacity-0');
+        navMenu.classList.toggle('visible');
+        navMenu.classList.toggle('invisible');
         
         // Prevent body scroll when menu is open
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        const isOpen = navMenu.classList.contains('translate-y-0');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
     };
 
     // Close menu when clicking hamburger
-    hamburger.addEventListener('click', toggleMenu);
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMenu);
+    }
 
     // Close menu when clicking a nav link
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (navMenu.classList.contains('active')) {
+            if (navMenu.classList.contains('translate-y-0')) {
                 toggleMenu();
             }
         });
@@ -34,16 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close menu on escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        if (e.key === 'Escape' && navMenu.classList.contains('translate-y-0')) {
             toggleMenu();
         }
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (navMenu.classList.contains('active') && 
+        if (navMenu.classList.contains('translate-y-0') && 
             !navMenu.contains(e.target) && 
-            !hamburger.contains(e.target)) {
+            hamburger && !hamburger.contains(e.target)) {
             toggleMenu();
         }
     });
@@ -64,7 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetElement) {
                 e.preventDefault();
                 
-                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const navbar = document.querySelector('nav');
+                const navHeight = navbar ? navbar.offsetHeight : 72;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
                 
                 window.scrollTo({
@@ -81,10 +91,15 @@ const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
     // Optional UX: disable button / change text
-    const submitBtn = contactForm.querySelector('.btn-submit, button[type="submit"]');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
+      const span = submitBtn.querySelector('span');
+      if (span) {
+        span.textContent = 'Sending...';
+      } else {
+        submitBtn.textContent = 'Sending...';
+      }
     }
     // IMPORTANT: no e.preventDefault() here
     // Browser will POST to /api/ghl-form
@@ -95,7 +110,7 @@ if (contactForm) {
 
 
     // ===== Navbar Hide on Scroll Down =====
-    const navbar = document.querySelector('.navbar');
+    const navbar = document.querySelector('nav');
     let lastScroll = 0;
     let scrollThreshold = 100; // Only hide after scrolling 100px
     
@@ -147,7 +162,7 @@ if (contactForm) {
     }, observerOptions);
     
     // Observe solution cards for animation
-    const solutionCards = document.querySelectorAll('.solution-card');
+    const solutionCards = document.querySelectorAll('#solutions > div > div > div > div');
     solutionCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
@@ -156,7 +171,7 @@ if (contactForm) {
     });
 
     // Observe feature cards for animation
-    const featureCards = document.querySelectorAll('.feature-card');
+    const featureCards = document.querySelectorAll('#about > div > div:last-child > div');
     featureCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
@@ -165,7 +180,7 @@ if (contactForm) {
     });
 
     // Observe industry cards for animation
-    const industryCards = document.querySelectorAll('.industry-card');
+    const industryCards = document.querySelectorAll('#industries > div > div:last-child > div');
     industryCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
@@ -174,7 +189,7 @@ if (contactForm) {
     });
     
     // Observe contact form for animation
-    const contactFormContainer = document.querySelector('.contact-form');
+    const contactFormContainer = document.querySelector('#contact-form');
     if (contactFormContainer) {
         contactFormContainer.style.opacity = '0';
         contactFormContainer.style.transform = 'translateY(30px)';
