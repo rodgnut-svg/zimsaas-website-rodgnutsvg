@@ -12,16 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rodgnut-svg/zimsaas.git"
+    "url": "git+https://github.com/rodgnut-svg/zimsaas-website-rodgnutsvg.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/rodgnut-svg/zimsaas/issues"
+    "url": "https://github.com/rodgnut-svg/zimsaas-website-rodgnutsvg/issues"
   },
-  "homepage": "https://github.com/rodgnut-svg/zimsaas#readme",
+  "homepage": "https://github.com/rodgnut-svg/zimsaas-website-rodgnutsvg#readme",
   "dependencies": {
     "busboy": "^1.6.0",
     "ogl": "^1.0.11"
