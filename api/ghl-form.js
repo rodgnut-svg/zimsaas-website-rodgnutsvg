@@ -51,15 +51,15 @@ export default async function handler(req, res) {
     console.log("GHL response:", text);
 
     if (response.ok) {
-      // Redirect to thank-you page
-      return res.redirect(302, "/thank-you.html");
+      // Return success JSON - frontend will handle display
+      return res.status(200).json({ success: true, message: "Form submitted successfully" });
     }
 
     // GHL responded but not ok (4xx/5xx)
-    return res.status(500).send(`Error sending to GHL: ${text}`);
+    return res.status(500).json({ success: false, error: `Error sending to GHL: ${text}` });
   } catch (e) {
     console.error("Server error calling GHL:", e);
-    return res.status(500).send("Server error");
+    return res.status(500).json({ success: false, error: "Server error" });
   }
 }
 

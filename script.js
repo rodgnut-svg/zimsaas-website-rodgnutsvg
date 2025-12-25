@@ -89,9 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    // Optional UX: disable button / change text
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Disable button and show loading state
     const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalBtnContent = submitBtn.innerHTML;
     if (submitBtn) {
       submitBtn.disabled = true;
       const span = submitBtn.querySelector('span');
@@ -101,11 +104,104 @@ if (contactForm) {
         submitBtn.textContent = 'Sending...';
       }
     }
-    // IMPORTANT: no e.preventDefault() here
-    // Browser will POST to /api/ghl-form
-    // Form will submit naturally
+
+    try {
+      // Get form data
+      const formData = new FormData(contactForm);
+      const body = new URLSearchParams(formData).toString();
+
+      // Submit to API
+      const response = await fetch('/api/ghl-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      });
+
+      let result;
+      try {
+        result = await response.json();
+      } catch (parseError) {
+        throw new Error('Failed to parse response');
+      }
+
+      if (response.ok && result.success) {
+        // Show thank you modal
+        showThankYouModal();
+        // Reset form and restore button
+        contactForm.reset();
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnContent;
+      } else {
+        alert('Something went wrong submitting your form. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnContent;
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Something went wrong submitting your form. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnContent;
+    }
   });
 }
+
+// ===== Thank You Modal =====
+function showThankYouModal() {
+  // Create modal overlay
+  const modal = document.createElement('div');
+  modal.id = 'thank-you-modal';
+  modal.className = 'thank-you-modal-overlay';
+  modal.innerHTML = `
+    <div class="thank-you-modal-content">
+      <div class="thank-you-icon-wrapper">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+      <h2 class="thank-you-title">Thank you!</h2>
+      <p class="thank-you-message">Your request has been received. We'll get back to you shortly with your customized automation plan.</p>
+      <button class="thank-you-close-btn" onclick="closeThankYouModal()">
+        <span>Close</span>
+      </button>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  // Close when clicking overlay background
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeThankYouModal();
+    }
+  });
+  
+  // Trigger animation
+  setTimeout(() => {
+    modal.classList.add('active');
+  }, 10);
+  
+  // Close on escape key
+  const handleEscape = (e) => {
+    if (e.key === 'Escape') {
+      closeThankYouModal();
+      document.removeEventListener('keydown', handleEscape);
+    }
+  };
+  document.addEventListener('keydown', handleEscape);
+}
+
+function closeThankYouModal() {
+  const modal = document.getElementById('thank-you-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    setTimeout(() => {
+      modal.remove();
+    }, 300);
+  }
+}
+
+// Make function available globally
+window.closeThankYouModal = closeThankYouModal;
 
 
 
